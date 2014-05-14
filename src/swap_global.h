@@ -15,14 +15,14 @@
 #include <signal.h>
 #include "assert.h"
 #include "string.h"
-#include <unordered_map>
-#define DEBUG true
 
 #ifndef GLOBAL_H_
 #define GLOBAL_H_
 
-int PAGE_SIZE =  sysconf(_SC_PAGE_SIZE); // Each page in page buffer is of size 4KB
-struct sigaction sa;
+#define DEBUG true
+
+#define PAGE_SIZE sysconf(_SC_PAGE_SIZE) // Each page in page buffer is of size 4KB
+
 #define handle_error(msg) \
   do {perror (msg); exit(EXIT_FAILURE);} while (0)
 

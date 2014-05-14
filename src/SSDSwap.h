@@ -6,6 +6,10 @@
  */
 
 #include "swap_global.h"
+#include "PageBuffer.h"
+#include "SwapManager.h"
+#include "SwapWriter.h"
+#include "SwapReader.h"
 
 using namespace std;
 
@@ -17,15 +21,15 @@ using namespace std;
 
 class SSDSwap {
 private:
-	PageBuffer _page_buffer;
-	SwapManager _swap_manager;
+	PageBuffer* _page_buffer;
+	struct sigaction _sa;
 
 public:
-	SSDSwap();
+	SSDSwap(struct sigaction sa);
 	virtual ~SSDSwap();
-	void seg_handler (int sig, siginfo_t *si, void *unused);
+	static void seg_handler (int sig, siginfo_t *si, void *unused);
 	// Function which converts an object's location to the location where its page header resides
-	void *object_va_to_page_header(void *object_va);
+	static void *object_va_to_page_header(void *object_va);
 	void swapOut(void *va);
 };
 

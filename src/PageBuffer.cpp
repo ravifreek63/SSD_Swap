@@ -6,6 +6,7 @@
  */
 
 #include "PageBuffer.h"
+#include "SwapWriter.h"
 
 PageBuffer::PageBuffer() {
 	// TODO Auto-generated constructor stub
@@ -15,11 +16,12 @@ PageBuffer::~PageBuffer() {
 	// TODO Auto-generated destructor stub
 }
 
-void PageBuffer::pageOut(void *va) {
+void PageBuffer::pageOut(void *va, int np) {
 	// Writing the page out to swap
-	SwapWriter::swapOut (va, 1, 0);
+	SwapWriter::swapOut (va, np);
 	// Protecting the swapped out page
-	if (mprotect (va, PAGE_SIZE, PROT_NONE) == -1){
+	if (mprotect (va, np*PAGE_SIZE, PROT_NONE) == -1){
 	    printf("Error In Protecting Page %p \n", va); fflush(stdout);
 	}
+	madvise (va, np*PAGE_SIZE, MADV_DONTNEED); // After swap out the page is advised to be not needed
 }

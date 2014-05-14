@@ -16,7 +16,7 @@ class SwapWriter {
 public:
 	SwapWriter();
 	virtual ~SwapWriter();
-	static size_t swapOut(void * va, int ps, int off);
+	static size_t swapOut(void * va, int ps);
 };
 
 #endif /* SWAPWRITER_H_ */
