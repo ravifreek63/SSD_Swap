@@ -19,14 +19,14 @@ SwapWriter::~SwapWriter() {
 // Page needs to be protected later on.
 size_t SwapWriter::swapOut (void * va, int np){
 	  int off = 0;
-	  FILE *f = fopen("/Users/tandon/swap.txt", "w");
+	  FILE *f = fopen("/home/tandon/swap.txt", "w");
 	  fseek(f, off, SEEK_SET);
 	  size_t len = fwrite(va, sizeof(char), np * PAGE_SIZE, f);
 	  if (len == 0){
 		  fputs ("Error writing swap file\n", stderr); fflush(stdout);
 	  } else {
 		  if (DEBUG){
-			  printf("Read %zd bytes from the file\n", len); fflush(stdout);
+			  printf("Writing %zd bytes from the file\n", len); fflush(stdout);
 		  }
 	  }
 	  fclose (f);

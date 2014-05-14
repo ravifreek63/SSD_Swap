@@ -19,7 +19,7 @@
 #ifndef GLOBAL_H_
 #define GLOBAL_H_
 
-#define DEBUG true
+#define DEBUG false
 
 #define PAGE_SIZE sysconf(_SC_PAGE_SIZE) // Each page in page buffer is of size 4KB
 

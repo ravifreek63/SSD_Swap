@@ -13,11 +13,16 @@ void* SSDSwap::object_va_to_page_header (void *object_va) {
 
 // The handler to catch SIGSEGV faults on memory access
 void SSDSwap::seg_handler (int sig, siginfo_t *si, void *unused){
+  if (DEBUG){
+	  printf("seg_handler, fault on %p\n", si->si_addr); fflush(stdout);
+  }
   if (si->si_code == SEGV_ACCERR){
     void *page_header = SSDSwap::object_va_to_page_header(si->si_addr);
+    if (DEBUG){
+   	  printf("seg_handler, page address on %p\n", page_header); fflush(stdout);
+     }
     if (mprotect (page_header, PAGE_SIZE, PROT_READ | PROT_WRITE) == -1){
-    	printf ("error in protecting page %p\n", page_header);
-    	fflush (stdout);
+    	printf ("error in protecting page %p\n", page_header);  fflush (stdout);
     } else {
     	SwapReader::swapIn(page_header, PAGE_SIZE, 0);
     }
