@@ -13,7 +13,7 @@ class SwapReader {
 public:
 	SwapReader();
 	virtual ~SwapReader();
-	static void swapIn (void * va,  int np, int off);
+	static size_t swapIn (void * va,  int np, int off);
 };
 
 #endif /* SWAPREADER_H_ */

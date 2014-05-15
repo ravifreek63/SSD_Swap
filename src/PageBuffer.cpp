@@ -16,12 +16,19 @@ PageBuffer::~PageBuffer() {
 	// TODO Auto-generated destructor stub
 }
 
-void PageBuffer::pageOut(void *va, int np) {
+SSDRange PageBuffer::pageOut(void *va, int np) {
 	// Writing the page out to swap
-	SwapWriter::swapOut (va, np);
+	SSDRange ssdRange = SwapWriter::swapOut (va, np);
 	// Protecting the swapped out page
 	if (mprotect (va, np*PAGE_SIZE, PROT_NONE) == -1){
-	    printf("Error In Protecting Page %p \n", va); fflush(stdout);
+		perror("error :");
+		printf("Error In Protecting Page %p \n", va); fflush(stdout);
+	    return -1;
 	}
-	madvise (va, np*PAGE_SIZE, MADV_DONTNEED); // After swap out the page is advised to be not needed
+	if (madvise (va, np*PAGE_SIZE, MADV_DONTNEED) == -1){ // After swap out the page is advised to be not needed
+		perror("error :");
+		printf("Error In Protecting Page %p \n", va); fflush(stdout);
+		return -1;
+	}
+	return ssdRange;
 }

@@ -7,11 +7,26 @@
 
 #ifndef SWAPMANAGER_H_
 #define SWAPMANAGER_H_
+#include "swap_global.h"
+
+typedef std::unordered_map <void *, SSDRange> swapMap;
+typedef std::pair<void *, SSDRange> mapPair;
 
 class SwapManager {
+private:
+	PageBuffer* _page_buffer;
+	struct sigaction _sa;
+
 public:
-	SwapManager();
+	SwapManager(struct sigaction sa);
 	virtual ~SwapManager();
+	static int swapRange(void *va);
+	static mapPair SwapManager::makePair(void *va, SSDRange ssdRange);
+	void mapRange(void *va, int offset_s, int offset_e);
+	static SwapRange addressRegion(void *va);
+	static void* object_va_to_page_header(void *va);
+	static void SwapManager::remapPage (void *address);
+
 };
 
 #endif /* SWAPMANAGER_H_ */
