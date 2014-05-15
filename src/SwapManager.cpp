@@ -39,6 +39,7 @@ void SwapManager::remapPage (void *address){
 SwapRange* SwapManager::swapRange(void *va) {
 	SwapRange* swap_range = addressRegion (va);
 	SSDRange ssdRange = PageBuffer::pageOut(swap_range->getStartAddress(), swap_range->getNumPages());
+	mapRange(swap_range->getStartAddress(), ssdRange.getStart(), ssdRange.getEnd());
 	return swap_range;
 }
 
