@@ -33,7 +33,7 @@ void SwapManager::remapPage (void *address){
 
 SwapRange SwapManager::swapRange(void *va) {
 	SwapRange swapRange = addressRegion (va);
-	SSDRange ssdRange = _page_buffer->pageOut(swapRange.getStartAddress(), swapRange.getNumPages());
+	SSDRange ssdRange = PageBuffer::pageOut(swapRange.getStartAddress(), swapRange.getNumPages());
 	return swapRange;
 }
 
@@ -42,12 +42,12 @@ void* SwapManager::object_va_to_page_header (void *object_va) {
 }
 
 SwapRange SwapManager::addressRegion(void *va){
-	SwapRange swapRange(object_va_to_page_header (va), 1);
+	SwapRange swapRange = new SwapRange (1, object_va_to_page_header (va));
 	return swapRange;
 }
 
 void SwapManager::mapRange(void *va, int offset_s, int offset_e){
-	SSDRange ssdRange(offset_s, offset_e);
+	SSDRange ssdRange = new SSDRange (offset_s, offset_e);
 	mapPair mPair = makePair (va, ssdRange);
 	swapMap.insert(mPair);
 }

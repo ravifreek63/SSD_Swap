@@ -20,7 +20,7 @@ void SSDSwap::seg_handler (int sig, siginfo_t *si, void *unused){
 }
 
 SSDSwap::SSDSwap(struct sigaction sa) {
-	_swap_manager (sa);
+	SwapManager _swap_manager = new SwapManager (sa);
 	// defining the segmentation fault handler
 	  sa.sa_flags = SA_SIGINFO; // The siginfo_t structure is passed as a second parameter to the user signal handler function
 	  sigemptyset(&sa.sa_mask); // Emptying the signal set associated with the structure sigaction_t
