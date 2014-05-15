@@ -18,11 +18,10 @@ typedef std::unordered_map<void *, SSDRange>::const_iterator swapMapIter;
 class SwapManager {
 private:
 	PageBuffer* _page_buffer;
-	struct sigaction _sa;
 	swapMap _swap_map;
 
 public:
-	SwapManager(struct sigaction sa);
+	SwapManager();
 	virtual ~SwapManager();
 	static SwapRange* swapRange(void *va);
 	static mapPair makePair(void *va, SSDRange ssdRange);

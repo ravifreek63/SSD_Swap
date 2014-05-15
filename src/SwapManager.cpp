@@ -8,10 +8,9 @@
 #include "SwapManager.h"
 #include "SwapReader.h"
 
-SwapManager::SwapManager(struct sigaction sa) {
+SwapManager::SwapManager() {
 	// TODO Auto-generated constructor stub
 	_page_buffer = new PageBuffer();
-	_sa = sa;
 }
 
 SwapManager::~SwapManager() {
