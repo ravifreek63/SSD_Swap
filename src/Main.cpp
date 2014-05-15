@@ -11,7 +11,7 @@
 struct sigaction sa;
 
 SSDSwap* ssdSwap;
-void* seg_handler(int sig, siginfo_t *si, void *unused){
+void seg_handler(int sig, siginfo_t *si, void *unused){
 	  if (DEBUG){
 		  printf("seg_handler, fault on %p\n", si->si_addr); fflush(stdout);
 	  }

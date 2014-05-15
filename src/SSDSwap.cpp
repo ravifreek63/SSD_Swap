@@ -13,7 +13,7 @@ void* SSDSwap::seg_handler (void *addr){
 
 }
 
-SSDSwap::SSDSwap(struct sigaction sa) {
+SSDSwap::SSDSwap() {
 	_swap_manager = new SwapManager ();
 }
 

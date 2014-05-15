@@ -22,7 +22,6 @@ using namespace std;
 class SSDSwap {
 private:
 	SwapManager* _swap_manager;
-	struct sigaction _sa;
 
 public:
 	SSDSwap();
