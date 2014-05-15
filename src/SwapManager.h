@@ -9,9 +9,7 @@
 #define SWAPMANAGER_H_
 
 #include "swap_global.h"
-
-class SSDRange;
-class SwapRange;
+#include "PageBuffer.h"
 
 typedef std::unordered_map <void *, SSDRange> swapMap;
 typedef std::pair<void *, SSDRange> mapPair;

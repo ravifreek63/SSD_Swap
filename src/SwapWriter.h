@@ -11,8 +11,6 @@
 
 #include "swap_global.h"
 
-class SSDRange;
-
 class SwapWriter {
 
 public:
