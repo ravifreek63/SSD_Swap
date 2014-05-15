@@ -27,7 +27,7 @@ private:
 public:
 	SSDSwap(struct sigaction sa);
 	virtual ~SSDSwap();
-	static void seg_handler (int sig, siginfo_t *si, void *unused);
+	void seg_handler (int sig, siginfo_t *si, void *unused);
 	// Function which converts an object's location to the location where its page header resides
 	static void *object_va_to_page_header(void *object_va);
 	void swapOut(void *va);

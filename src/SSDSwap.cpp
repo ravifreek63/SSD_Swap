@@ -24,7 +24,7 @@ SSDSwap::SSDSwap(struct sigaction sa) {
 	// defining the segmentation fault handler
 	  sa.sa_flags = SA_SIGINFO; // The siginfo_t structure is passed as a second parameter to the user signal handler function
 	  sigemptyset(&sa.sa_mask); // Emptying the signal set associated with the structure sigaction_t
-	  sa.sa_sigaction = seg_handler; // Assigning the fault handler
+	  sa.sa_sigaction = SSDSwap::seg_handler; // Assigning the fault handler
 	  if (sigaction(SIGSEGV, &sa, NULL) == -1) // Installs the function in sa taken on a segmentation fault
 	    handle_error("Sig Action Error");
 }
