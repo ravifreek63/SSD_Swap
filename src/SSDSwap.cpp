@@ -13,7 +13,7 @@ void SSDSwap::seg_handler (int sig, siginfo_t *si, void *unused){
 	  printf("seg_handler, fault on %p\n", si->si_addr); fflush(stdout);
   }
   if (si->si_code == SEGV_ACCERR){
-	  SwapManager::remapPage(si->si_addr);
+	  _swap_manager->remapPage(si->si_addr);
   } else
 	handle_error ("Segmentation fault, Code is different");
 

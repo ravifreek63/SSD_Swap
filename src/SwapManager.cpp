@@ -19,8 +19,8 @@ SwapManager::~SwapManager() {
 }
 
 void SwapManager::remapPage (void *address){
-  SwapRange swapRange = addressRegion(address);
-  void *page_header = swapRange.getStartAddress();
+  SwapRange* swapRange = addressRegion(address);
+  void *page_header = swapRange->getStartAddress();
   swapMapIter iter = _swap_map.find(page_header);
   if  (iter == _swap_map.end() ){
 	  printf("Error, cannot swap in page %p does not exist in the page buffer \n", address); fflush(stdout);
@@ -33,14 +33,14 @@ void SwapManager::remapPage (void *address){
   if (mprotect (page_header, PAGE_SIZE, PROT_READ | PROT_WRITE) == -1){
   	printf ("error in protecting page %p\n", page_header);  fflush (stdout);
   } else {
-  	SwapReader::swapIn(page_header, swapRange.getNumPages(), ssdRange.getStart());
+  	SwapReader::swapIn(page_header, swapRange->getNumPages(), ssdRange.getStart());
   }
 }
 
-SwapRange SwapManager::swapRange(void *va) {
-	SwapRange* swapRange = addressRegion (va);
-	SSDRange ssdRange = PageBuffer::pageOut(swapRange->getStartAddress(), swapRange->getNumPages());
-	return swapRange;
+SwapRange* SwapManager::swapRange(void *va) {
+	SwapRange* swap_range = addressRegion (va);
+	SSDRange ssdRange = PageBuffer::pageOut(swap_range->getStartAddress(), swap_range->getNumPages());
+	return swap_range;
 }
 
 void* SwapManager::object_va_to_page_header (void *object_va) {
@@ -48,8 +48,8 @@ void* SwapManager::object_va_to_page_header (void *object_va) {
 }
 
 SwapRange* SwapManager::addressRegion(void *va){
-	SwapRange* swapRange = new SwapRange (1, object_va_to_page_header (va));
-	return swapRange;
+	SwapRange* swap_range = new SwapRange (1, object_va_to_page_header (va));
+	return swap_range;
 }
 
 void SwapManager::mapRange(void *va, int offset_s, int offset_e){
