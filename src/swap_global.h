@@ -15,6 +15,8 @@
 #include <signal.h>
 #include "assert.h"
 #include "string.h"
+#include <unordered_map>
+using namespace std;
 
 #ifndef GLOBAL_H_
 #define GLOBAL_H_

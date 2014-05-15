@@ -11,12 +11,14 @@
 
 #include "swap_global.h"
 
+class SSDRange;
+
 class SwapWriter {
 
 public:
 	SwapWriter();
 	virtual ~SwapWriter();
-	static SSDRange SwapWriter::swapOut (void * va, int np);
+	static SSDRange swapOut (void * va, int np);
 };
 
 #endif /* SWAPWRITER_H_ */

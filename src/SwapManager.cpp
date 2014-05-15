@@ -17,7 +17,7 @@ SwapManager::~SwapManager() {
 	// TODO Auto-generated destructor stub
 }
 
-static void SwapManager::remapPage (void *address){
+void SwapManager::remapPage (void *address){
   SwapRange swapRange = addressRegion(address);
   void *page_header = swapRange.getStartAddress();
   SSDRange ssdRange = swapMap.get(page_header);
@@ -31,17 +31,17 @@ static void SwapManager::remapPage (void *address){
   }
 }
 
-static int SwapManager::swapRange(void *va) {
+SwapRange SwapManager::swapRange(void *va) {
 	SwapRange swapRange = addressRegion (va);
 	SSDRange ssdRange = _page_buffer->pageOut(swapRange.getStartAddress(), swapRange.getNumPages());
 	return swapRange;
 }
 
-static void* SwapManager::object_va_to_page_header (void *object_va) {
+void* SwapManager::object_va_to_page_header (void *object_va) {
 	  return (void *)((long)object_va & (~(PAGE_SIZE-1)));
 }
 
-static SwapRange SwapManager::addressRegion(void *va){
+SwapRange SwapManager::addressRegion(void *va){
 	SwapRange swapRange(object_va_to_page_header (va), 1);
 	return swapRange;
 }
@@ -52,7 +52,7 @@ void SwapManager::mapRange(void *va, int offset_s, int offset_e){
 	swapMap.insert(mPair);
 }
 
-static mapPair SwapManager::makePair(void *va, SSDRange ssdRange){
+mapPair SwapManager::makePair(void *va, SSDRange ssdRange){
 	return mapPair(va, ssdRange);
 }
 

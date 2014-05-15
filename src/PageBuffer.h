@@ -13,6 +13,8 @@
 /* Page Buffer is the interface for maintaining the pages within the in memory buffer.
  * */
 
+class SSDRange;
+
 class PageBuffer {
 private:
 	int _number_of_pages;
