@@ -23,12 +23,12 @@ SSDRange PageBuffer::pageOut(void *va, int np) {
 	if (mprotect (va, np*PAGE_SIZE, PROT_NONE) == -1){
 		perror("error :");
 		printf("Error In Protecting Page %p \n", va); fflush(stdout);
-	    return -1;
+	    return NULL;
 	}
 	if (madvise (va, np*PAGE_SIZE, MADV_DONTNEED) == -1){ // After swap out the page is advised to be not needed
 		perror("error :");
 		printf("Error In Protecting Page %p \n", va); fflush(stdout);
-		return -1;
+		return NULL;
 	}
 	return ssdRange;
 }

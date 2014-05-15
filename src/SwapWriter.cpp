@@ -17,7 +17,7 @@ SwapWriter::~SwapWriter() {
 
 // Writes a set number of pages to the offset in the file, assumes the page to be unprotected.
 // Page needs to be protected later on.
-static SSDRange SwapWriter::swapOut (void * va, int np){
+SSDRange SwapWriter::swapOut (void * va, int np){
 	  int off = 0;
 	  FILE *f = fopen("/home/tandon/swap.txt", "w");
 	  fseek(f, off, SEEK_SET);
@@ -30,6 +30,6 @@ static SSDRange SwapWriter::swapOut (void * va, int np){
 		  }
 	  }
 	  fclose (f);
-	  return SSDRange(off, off + np * PAGE_SIZE);
+	  return SSDRange (off, off + np * PAGE_SIZE);
 }
 
