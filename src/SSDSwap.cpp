@@ -8,7 +8,7 @@
 #include "SSDSwap.h"
 
 // The handler to catch SIGSEGV faults on memory access
-void SSDSwap::seg_handler (int sig, siginfo_t *si, void *unused){
+void* SSDSwap::seg_handler (int sig, siginfo_t *si, void *unused){
   if (DEBUG){
 	  printf("seg_handler, fault on %p\n", si->si_addr); fflush(stdout);
   }
